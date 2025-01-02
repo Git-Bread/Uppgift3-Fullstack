@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uppgift3</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="count++">
+            Count is: {{ count }}
+        </button>
+    </div>
+
+    <script>
+        // Create a Vue application
+        import { createApp, ref } from 'vue'
+    
+        createApp({
+            setup() {
+                return {
+                count: ref(0)
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
