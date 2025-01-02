@@ -1,16 +1,11 @@
 <script setup>
-import Navigation from './components/Navigation.vue'
-import HeroImage from './components/HeroImage.vue'
+  import Navigation from './components/Navigation.vue'
+  import HeroImage from './components/HeroImage.vue'
 </script>
 
 <template>
-  <header>
-    <Navigation />
-  </header>
-
+  <Navigation />
   <HeroImage />
+  <RouterView></RouterView>
   
-  <main>
-    <TheWelcome />
-  </main>
 </template>
