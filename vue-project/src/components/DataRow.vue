@@ -22,6 +22,7 @@
                 alert("Something went wrong, try again later or contact a system-admin");
                 console.log(error);
             }
+            this.$emit('submit')
         }
         }
     }

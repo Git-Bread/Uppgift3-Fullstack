@@ -72,7 +72,7 @@ export default {
                         </tr>
                     </thead>
                     <tbody>
-                        <DataRow v-for="(item) in ObjectList" :id="item.id" :name="item.name" :type="item.type" :rating="item.rating + '/5'" :release="item.release" />
+                        <DataRow v-for="(item) in ObjectList" :id="item.id" :name="item.name" :type="item.type" :rating="item.rating + '/5'" :release="item.release" @submit="NotifySubmission" />
                     </tbody>
                 </table>
             </div>
