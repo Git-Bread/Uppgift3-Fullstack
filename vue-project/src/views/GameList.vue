@@ -10,11 +10,6 @@ export default {
         DataRow,
         AddForm
     },
-    methods: {
-        NotifySubmission() {
-            console.log("New game submitted");
-        }
-    },
     setup() {
         let ObjectList = ref(["empty"]);
 
@@ -48,9 +43,15 @@ export default {
         run();
 
         return {
-            ObjectList
+            ObjectList,
+            run
         }
-    }
+    },
+    methods: {
+        NotifySubmission() {
+            this.run();
+        }
+    },
 }
 </script>
 
