@@ -11,9 +11,8 @@ export default {
         AddForm
     },
     methods: {
-        NotifySubmission(newGame) {
-            console.log("New game submitted:", newGame);
-            // Optionally update a central state or perform additional actions
+        NotifySubmission() {
+            console.log("New game submitted");
         }
     },
     setup() {

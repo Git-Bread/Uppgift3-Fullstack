@@ -2,9 +2,27 @@
     export default {
         props: ['id','name', 'type', 'rating', 'release'],
         methods: {
-            removeItem(item) {
-                console.log(item);
+            async removeItem(number) {
+            if (!number) {
+                console.log("no number selected");
+                return;
             }
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/games/' + number, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (error) {
+                alert("Something went wrong, try again later or contact a system-admin");
+                console.log(error);
+            }
+        }
         }
     }
 </script>

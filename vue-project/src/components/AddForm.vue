@@ -13,30 +13,41 @@ import {ref, watch} from "vue";
                     const response = await fetch('http://127.0.0.1:8000/api/games', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     },
                     body: JSON.stringify({
-                        gameName: this.gameName,
-                        gameType: this.gameType,
-                        gameRating: this.gameRating,
-                        gameRelease: this.gameRelease
+                        name: this.gameName,
+                        type: this.gameType,
+                        rating: this.gameRating,
+                        release: this.gameRelease
                     })
                 });
+                let data = await response.json();
                 if (!response.ok) {
-                    throw new Error('Network did not respond' + response.status);
+                    if (response.status === 422) {
+                        console.log('Validation errors:', data.errors);
+                        this.error = data.errors;
+                    } else {
+                        throw new Error('Network did not respond' + response.status);
+                    }
+                    this.Submitting = false;
+                    return;
                 }
-                const data = await response.json();
 
                 } catch (error) {
-                    alert("Something went wrong, try again later or contact a system-admin")
-                    console.log(error);
+                    alert("Something went wrong, try again later or contact a system-admin");
+
+                    this.Submitting = false;
+                    return;
                 }
                 this.Submitting = false;
-                this.$emit('submit', this)
+                this.$emit('submit')
             }
         },
         setup() {
             let gameName = ref("");
+            let error = ref("");
             let gameType = ref("");
             let gameRating = ref("");
             let gameRelease = ref("");
@@ -55,13 +66,14 @@ import {ref, watch} from "vue";
                 gameType,
                 gameRating,
                 gameRelease,
-                Submitting
+                Submitting,
+                error
             };
         }
     }
 </script>
 <template>
-    <section class="p-6 bg-slate-200 rounded-3xl mt-5 md:mt-0 md:ml-2 flex">
+    <section class="p-6 bg-slate-200 rounded-3xl mt-5 md:mt-0 md:ml-2 flex flex-col md:flex-row">
             <div class="max-w-lg mx-auto">
                 <h2 class="text-3xl text-center pb-2">Add new Game</h2>
                 <form class="bg-white p-6 rounded-lg shadow-lg" onsubmit="this.reset(); return false;">
@@ -83,6 +95,9 @@ import {ref, watch} from "vue";
                     </div>
                     <div class="text-center">
                         <button type="submit" @click="submit" :disabled="Submitting" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">  {{ Submitting ? "Adding.." : "Submit" }}</button>
+                    </div>
+                    <div>
+                        <p v-for="(error) in error" class="text-red-500 text-2xl italic">{{ error[0] }}</p>
                     </div>
                 </form>
             </div>
