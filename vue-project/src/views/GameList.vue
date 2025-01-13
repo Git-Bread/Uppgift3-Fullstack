@@ -13,16 +13,17 @@ export default {
     setup() {
         let ObjectList = ref(["empty"]);
 
+        //loading the information from the API
         async function run() {
             try {
                 let newData = await getData();
-                console.log(newData);
                 ObjectList.value = newData;
             } catch (error) {
                 console.error(error);
             }
         }
 
+        //loading the information from the API Step 2 (fetch api)
         async function getData() {
             let request = new Request(url, { method: "GET"});
 
@@ -40,14 +41,17 @@ export default {
             }
         }
 
+        //initial load
         run();
 
+        //export load function to be able to load without reload
         return {
             ObjectList,
             run
         }
     },
     methods: {
+        //on emit from child components reload the data
         NotifySubmission() {
             this.run();
         }
@@ -72,12 +76,14 @@ export default {
                         </tr>
                     </thead>
                     <tbody>
+                        <!--loop through the object list and create a row for each object-->
                         <DataRow v-for="(item) in ObjectList" :id="item.id" :name="item.name" :type="item.type" :rating="item.rating + '/5'" :release="item.release" @submit="NotifySubmission" />
                     </tbody>
                 </table>
             </div>
         </section>
 
+        <!--AddForm component-->
         <section class="p-6 bg-slate-200 rounded-3xl mt-5 md:mt-0 md:ml-2 flex">
                 <AddForm @submit="NotifySubmission"/>
         </section>

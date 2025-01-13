@@ -3,7 +3,7 @@
         <h2 class="pb-4 text-3xl">Thoughts on Vue</h2>
         <div>
             <div>
-                <div class="">
+                <div>
                     <p>
                         Min första åsikt om vue är posetiv, funktioner såsom bindningar och routing gör det enkelt att bygga
                         responsiva moderna webbplatser. Strukturen tog lite tid att förstå men så fort det satt gick utväcklingen utan större problem.

@@ -1,6 +1,8 @@
 <template>
     <section class="p-8 bg-slate-200 max-w-fit m-auto rounded-3xl">
         <h2 class="pb-4 text-3xl">What is a Video Game?</h2>
+
+        <!--Big Block Quotes-->
         <div class="flex flex-col md:flex-row md:divide-x-2 md:divide-solid md:divide-slate-700 gap-4">
             <blockquote cite="https://en.wikipedia.org/wiki/Video_game" class="pr-4">
                 A video game, sometimes further qualified as a computer game, is an electronic game that involves interaction with a user interface or input device 

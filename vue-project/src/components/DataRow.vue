@@ -1,12 +1,18 @@
 <script>
     export default {
+        //prop declaration
         props: ['id','name', 'type', 'rating', 'release'],
         methods: {
+            //remove functionality
             async removeItem(number) {
+
+            //validation
             if (!number) {
                 console.log("no number selected");
                 return;
             }
+
+            //api call
             try {
                 const response = await fetch('http://127.0.0.1:8000/api/games/' + number, {
                     method: 'DELETE',
@@ -18,16 +24,21 @@
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
+
+            //error handling
             } catch (error) {
                 alert("Something went wrong, try again later or contact a system-admin");
                 console.log(error);
             }
+
+            //emiting to parent
             this.$emit('submit')
         }
         }
     }
 </script>
 
+<!--template for the data row (prop)-->
 <template>
     <tr class="odd:bg-white even:bg-gray-200 border-b dark:bg-gray-800 dark:border-gray-700">
         <td class="px-2 md:px-6 pl-2 py-2 hover:bg-zinc-300">{{id}}</td>

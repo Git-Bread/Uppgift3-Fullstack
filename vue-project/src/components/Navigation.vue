@@ -1,3 +1,4 @@
+<!-- Navigation using the router-link functionality-->
 <template>
     <header class="flex flex-col md:flex-row justify-around bg-gray-800 pt-2 border-b-2 border-indigo-700">
         <div>

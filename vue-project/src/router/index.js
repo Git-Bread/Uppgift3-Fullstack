@@ -3,6 +3,7 @@ import HomePage from '@/views/HomePage.vue';
 import ReflectionsPage from "@/views/ReflectionPage.vue";
 import GameList from '@/views/GameList.vue';
 
+//ordinary router
 const routes = [
   {
     path: '/',

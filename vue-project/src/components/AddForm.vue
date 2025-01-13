@@ -3,12 +3,17 @@
 import {ref, watch} from "vue";
     export default {
         methods: {
+            //form logic
             async submit() {
+
+                //simple validation
                 if(!this.gameName || !this.gameType || !this.gameRating || !this.gameRelease) {
                     console.log("not valid form");
                     return;
                 }
                 this.Submitting = true;
+
+                //api call
                 try {
                     const response = await fetch('http://127.0.0.1:8000/api/games', {
                     method: 'POST',
@@ -24,6 +29,8 @@ import {ref, watch} from "vue";
                     })
                 });
                 let data = await response.json();
+
+                //response validation
                 if (!response.ok) {
                     if (response.status === 422) {
                         console.log('Validation errors:', data.errors);
@@ -35,6 +42,7 @@ import {ref, watch} from "vue";
                     return;
                 }
 
+                //error handling
                 } catch (error) {
                     alert("Something went wrong, try again later or contact a system-admin");
 
@@ -42,10 +50,13 @@ import {ref, watch} from "vue";
                     return;
                 }
                 this.Submitting = false;
+
+                //emiting to parent
                 this.$emit('submit')
             }
         },
         setup() {
+            //variables
             let gameName = ref("");
             let error = ref("");
             let gameType = ref("");
@@ -53,6 +64,7 @@ import {ref, watch} from "vue";
             let gameRelease = ref("");
             const Submitting = ref(false);
 
+            //watches for validation of rating
             watch(gameRating, (value) => {
                 if (value < 0) gameRating.value = 0;
                 else if (value > 5) gameRating.value = 5;
@@ -61,6 +73,7 @@ import {ref, watch} from "vue";
                 }
             });
 
+            //returning variables
             return {
                 gameName,
                 gameType,
@@ -76,6 +89,8 @@ import {ref, watch} from "vue";
     <section class="p-6 bg-slate-200 rounded-3xl mt-5 md:mt-0 md:ml-2 flex flex-col md:flex-row">
             <div class="max-w-lg mx-auto">
                 <h2 class="text-3xl text-center pb-2">Add new Game</h2>
+
+                <!--Form with vmodels and error outpring-->
                 <form class="bg-white p-6 rounded-lg shadow-lg" onsubmit="this.reset(); return false;">
                     <div class="mb-4">
                         <label for="gameName" class="block text-sm font-medium text-gray-700">Name</label>
@@ -103,6 +118,8 @@ import {ref, watch} from "vue";
             </div>
             <div class="min-w-48 p-2 pt-0">
                 <h2 class="text-3xl text-center pb-2">Preview:</h2>
+
+                <!--Preview of the form using bound vmodels-->
                 <div class="bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto h-fit">
                     <div>
                         <h3>Name:</h3>
